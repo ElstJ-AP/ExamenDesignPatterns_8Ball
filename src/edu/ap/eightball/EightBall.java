@@ -24,12 +24,16 @@ public class EightBall {
 	private State currentState;
 	private Random random;
 	private int answerAmount;
+	private State[] pastAnswers;
+	private int counter;
 	
 	private static EightBall uniqueInstance = new EightBall();
 	
 	private EightBall(){
 		random = new Random();
 		answerAmount = 15;
+		pastAnswers = new State[10];
+		counter = 0;
 		
 		itIsCertainState = new ItIsCertain(this);
 		itIsDecidedlySoState = new ItIsDecidedlySo(this);
@@ -90,6 +94,23 @@ public class EightBall {
 	public void setCurrentState(State currentState) {
 		this.currentState = currentState;
 	}
+	
+	public State[] getPastAnswers(){
+		return pastAnswers;
+	}
+	
+	public void setPastAnswer(State state, int index){
+		pastAnswers[index] = state;
+		counter++;
+		if(counter > 9){
+			counter = 0;
+		}
+	}
+	
+	public int getCounter(){
+		return counter;
+	}
+	
 
 	public void ask(String question) {
     	getCurrentState().ask(question);

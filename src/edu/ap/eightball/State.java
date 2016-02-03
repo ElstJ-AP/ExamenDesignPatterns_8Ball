@@ -13,9 +13,26 @@ public abstract class State {
 		System.out.println(question);
 		ArrayList<State> list = ball.getAllStates();
 		Random rand = ball.getRandom();
+		State nextState;
+		
+		do{
 		int randomInt = rand.nextInt(ball.getAnswerAmount());
-		State nextState = list.get(randomInt);
+		nextState = list.get(randomInt);
+		
+		}while(alreadyAsked(nextState));
+		
 		ball.setCurrentState(nextState);
+		ball.setPastAnswer(nextState, ball.getCounter());
+	}
+	
+	public boolean alreadyAsked(State state){
+		State[] pastAnswers = ball.getPastAnswers();
+		for(int i = 0; i < pastAnswers.length; i++){
+			if(pastAnswers[i] == state){
+				return true;
+			}
+		}
+		return false;
 	}
 
 }
