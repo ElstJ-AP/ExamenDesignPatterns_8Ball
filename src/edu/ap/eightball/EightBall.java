@@ -25,7 +25,9 @@ public class EightBall {
 	private Random random;
 	private int answerAmount;
 	
-	public EightBall(){
+	private static EightBall uniqueInstance = new EightBall();
+	
+	private EightBall(){
 		random = new Random();
 		answerAmount = 15;
 		
@@ -47,6 +49,10 @@ public class EightBall {
 		
 		currentState = yesState;
 		
+	}
+	
+	public static EightBall getInstance(){
+		return uniqueInstance;				
 	}
 	
 	public ArrayList<State> getAllStates(){
